@@ -67,5 +67,5 @@ workflow is modified.
 
 ## Legacy Schemas (Deprecated)
 
-Machine-readable schemas in `schemas/change-pack.*` are legacy and optional.
+Machine-readable schemas in `legacy/schemas/change-pack.*` are optional.
 Use v2.0 with `INTENT_SPEC.md` + `CHANGE_SPEC.md` as the source of truth.

@@ -50,7 +50,7 @@ Required fields:
 Optional fields:
 - `owner`, `createdAt`, `summary`, `outcomes`, `constraints`, `nonGoals`, `risks`
 
-Schema: `schemas/requirements.epic-frontmatter.schema.json`
+Schema: `legacy/schemas/requirements.epic-frontmatter.schema.json`
 
 ---
 
@@ -73,7 +73,7 @@ Optional front matter fields:
 - `constraints`, `nonGoals`, `assumptions`, `dependencies`, `risks`,
   `successMetric`, `labels`, `entities`, `openQuestions`
 
-Schema: `schemas/requirements.story-frontmatter.schema.json`
+Schema: `legacy/schemas/requirements.story-frontmatter.schema.json`
 
 ### Required Gherkin Block
 
