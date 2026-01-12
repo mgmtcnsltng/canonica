@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/change-pack/changes.fragment.schema.json",
+  "title": "Change Pack Changes (Fragment Merge)",
+  "type": "object",
+  "required": ["specVersion", "mode", "changes"],
+  "properties": {
+    "specVersion": { "type": "string", "enum": ["1.1"] },
+    "mode": { "type": "string", "const": "fragment" },
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/change" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "target": {
+      "type": "object",
+      "required": ["configType", "configId"],
+      "properties": {
+        "configType": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_schema",
+                "workflow",
+                "ui_schema",
+                "plugin",
+                "webhook",
+                "computed_function",
+                "extension"
+              ]
+            },
+            { "type": "string", "pattern": "^x-" }
+          ]
+        },
+        "configId": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "change": {
+      "type": "object",
+      "required": ["target"],
+      "properties": {
+        "target": { "$ref": "#/$defs/target" },
+        "set": { "type": "object", "additionalProperties": true },
+        "merges": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/merge" }
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["set"] },
+        { "required": ["merges"] }
+      ]
+    },
+    "merge": {
+      "type": "object",
+      "required": ["path", "key"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "key": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "upsert": {
+          "type": "array",
+          "items": { "type": "object", "additionalProperties": true }
+        },
+        "remove": {
+          "type": "array",
+          "items": { "type": "object", "additionalProperties": true }
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["upsert"] },
+        { "required": ["remove"] }
+      ]
+    }
+  }
+}

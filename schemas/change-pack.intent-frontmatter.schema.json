@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/change-pack/intent-frontmatter.schema.json",
+  "title": "Change Pack intent.md Front Matter",
+  "type": "object",
+  "required": [
+    "specVersion",
+    "id",
+    "title",
+    "summary",
+    "author",
+    "status",
+    "createdAt",
+    "userStory",
+    "acceptanceCriteria",
+    "targets"
+  ],
+  "properties": {
+    "specVersion": { "type": "string", "enum": ["1.0", "1.1"] },
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "author": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "approved", "published", "archived"]
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "userStory": { "type": "string", "minLength": 1 },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/target" }
+    },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "nonGoals": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "successMetric": { "type": "string" },
+    "labels": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "target": {
+      "type": "object",
+      "required": ["configType", "configId"],
+      "properties": {
+        "configType": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_schema",
+                "workflow",
+                "ui_schema",
+                "plugin",
+                "webhook",
+                "computed_function",
+                "extension"
+              ]
+            },
+            { "type": "string", "pattern": "^x-" }
+          ]
+        },
+        "configId": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

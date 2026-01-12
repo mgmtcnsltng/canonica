@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/change-pack/tests.schema.json",
+  "title": "Change Pack Tests",
+  "type": "object",
+  "required": ["specVersion"],
+  "properties": {
+    "specVersion": { "type": "string", "enum": ["1.0", "1.1"] },
+    "auto": { "type": "boolean" },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/testCase" }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "auto": { "const": true } },
+        "required": ["auto"]
+      },
+      "then": {},
+      "else": { "required": ["cases"] }
+    }
+  ],
+  "$defs": {
+    "testCase": {
+      "type": "object",
+      "required": ["name", "entity", "action", "expected"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "entity": { "type": "object", "additionalProperties": true },
+        "workflowState": { "type": "string" },
+        "action": {
+          "type": "object",
+          "required": ["type", "payload"],
+          "properties": {
+            "type": { "type": "string", "enum": ["command", "transition"] },
+            "payload": { "type": "object", "additionalProperties": true }
+          },
+          "additionalProperties": false
+        },
+        "expected": {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "success": { "type": "boolean" },
+            "newState": { "type": "string" },
+            "fieldsSet": { "type": "object", "additionalProperties": true },
+            "errorsContain": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

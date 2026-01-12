@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/change-pack/changes.merge-patch.schema.json",
+  "title": "Change Pack Changes (JSON Merge Patch)",
+  "type": "object",
+  "additionalProperties": true
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/change-pack/manifest.schema.json",
+  "title": "Change Pack Manifest",
+  "type": "object",
+  "required": [
+    "specVersion",
+    "id",
+    "title",
+    "createdAt",
+    "author",
+    "status",
+    "targets",
+    "artifacts"
+  ],
+  "properties": {
+    "specVersion": { "type": "string", "enum": ["1.0", "1.1"] },
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "author": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "approved", "published", "archived"]
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/target" }
+    },
+    "changeMode": {
+      "type": "string",
+      "enum": ["fragment", "json-patch", "merge-patch"]
+    },
+    "patchType": { "type": "string", "enum": ["json-patch", "merge-patch"] },
+    "artifacts": { "$ref": "#/$defs/artifacts" },
+    "labels": { "type": "array", "items": { "type": "string" } },
+    "baseConfigVersion": { "type": "string", "minLength": 1 },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "epicId": { "type": "string", "minLength": 1 },
+        "storyId": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "target": {
+      "type": "object",
+      "required": ["configType", "configId"],
+      "properties": {
+        "configType": {
+          "anyOf": [
+            {
+              "enum": [
+                "entity_schema",
+                "workflow",
+                "ui_schema",
+                "plugin",
+                "webhook",
+                "computed_function",
+                "extension"
+              ]
+            },
+            { "type": "string", "pattern": "^x-" }
+          ]
+        },
+        "configId": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["intent", "changes", "tests"],
+      "properties": {
+        "intent": { "type": "string", "minLength": 1 },
+        "changes": { "type": "string", "minLength": 1 },
+        "tests": { "type": "string", "minLength": 1 },
+        "diagram": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "anyOf": [
+    { "required": ["changeMode"] },
+    { "required": ["patchType"] }
+  ]
+}

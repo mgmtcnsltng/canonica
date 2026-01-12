@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_URL": "https://firecrawl.research-stack.gongchatea.com.au",
+        "FIRECRAWL_API_KEY": "fc-your-api-key-if-required"
+      }
+    },
+    "browser-use": {
+      "command": "/Users/eddy/.local/bin/uvx",
+      "args": ["--from", "browser-use[cli]", "browser-use", "--mcp"],
+      "env": {
+        "OPENAI_API_KEY": "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"
+      }
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
+    "meilisearch": {
+      "command": "uvx",
+      "args": ["-n", "meilisearch-mcp"],
+      "env": {
+        "MEILI_HTTP_ADDR": "https://meilisearch.research-stack.gongchatea.com.au",
+        "MEILI_MASTER_KEY": "WHc847sZ+DfY6zn6NQn2foqfT/v2ao0Bb73oeFHLbGY="
+      }
+    }
+  }
+}

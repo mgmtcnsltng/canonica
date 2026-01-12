@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canonica.dev/spec/requirements/epic-frontmatter.schema.json",
+  "title": "Requirements Epic Front Matter",
+  "type": "object",
+  "required": [
+    "specVersion",
+    "id",
+    "title",
+    "status"
+  ],
+  "properties": {
+    "specVersion": { "type": "string", "enum": ["1.0"] },
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "approved", "in_progress", "done", "archived"]
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "owner": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string" },
+    "outcomes": { "type": "array", "items": { "type": "string" } },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "nonGoals": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}
