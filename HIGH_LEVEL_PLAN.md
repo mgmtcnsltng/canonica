@@ -61,6 +61,14 @@ Properties:
 
 Everything (UI edits, AI prompts, diagrams, Markdown) **compiles into canonical models before execution**.
 
+### Runtime Engine Scope
+
+- Executes canonical config deterministically; no embedded business logic.
+- Exposes Command/Query APIs; AI uses them but cannot bypass validation.
+- Core config types (v1): entity schema, workflow, rules/guards, RBAC/policies,
+  UI schema, integrations/notifications.
+- Workflow is a simple deterministic graph/FSM; no LangGraph runtime.
+
 ---
 
 ## 4. Workflow vs Rules (Clear Separation)
@@ -164,6 +172,7 @@ Next.js acts as a **renderer**, not a logic holder.
   - entity.create / update
   - entity.transition
   - metrics.query
+- Always via the Command API with role-based permissions
 
 ### Builder Agent (LangChain DeepAgent)
 
@@ -233,8 +242,10 @@ Draft → Validate → Simulate → Diff → Preview → Publish
 
 ### Data
 - PostgreSQL (source of truth + metadata)
+- Redis (optional cache, not source of truth)
 - ClickHouse (analytics)
 - Audit / event log
+- No event sourcing in v1
 
 ### AI
 - LangChain
@@ -302,7 +313,7 @@ This separation is what makes the system **generic, AI‑driven, safe, and produ
 ## 15. Reference Demo (Request → Approval → Fulfillment)
 
 Use a simple request/approval/fulfillment flow as the generic demo to
-pressure-test the kernel.
+pressure-test the runtime engine.
 
 ### Entities
 - Request

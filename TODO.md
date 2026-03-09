@@ -1,21 +1,25 @@
 # TODO
 
-## Do (with why)
+## Sequence (start here)
 
-- Build the constrained kernel (entity schema, schema-driven UI, guarded workflows, audit/versioning, RBAC).  
-  Why: proves deterministic runtime and generic behavior without a DSL.
-- Implement Plan vs Accept AI modes with explicit risk gating.  
-  Why: non-technical builders need AI speed but require safety and reversibility.
-- Adopt Change Pack v2.0 (intent.md + change.md + optional tests/diagram/logs).  
-  Why: human-first changes that are clear to review and easy for AI to draft.
-- Deprecate the requirements layer (epic/story) in favor of intent + change.  
-  Why: reduce ceremony for non-technical builders.
-- Build the generic demo app (request → approval → fulfillment).  
-  Why: validates the kernel and builder UX without vertical lock-in.
-- Ship preview/simulate/diff/rollback in the change pipeline.  
-  Why: safety and trust are the core differentiators.
-- Focus builder UX on non-technical users (visual editors + guard builders).  
-  Why: adoption fails if users fall back to JSON editing.
+1) Define the generic demo app scope (request → approval → fulfillment).  
+   Why: anchors the runtime engine and UX in a real flow.
+2) Build the constrained runtime engine (entity schema, schema-driven UI, guarded workflows, audit/versioning, RBAC).  
+   Why: proves deterministic runtime and generic behavior without a DSL.
+3) Implement Change Pack v2.0 flow (intent.md + change.md + preview/diff/simulate/publish).  
+   Why: human-first change process that AI can draft and humans can trust.
+4) Build the non-technical builder UX (visual schema + workflow + guard editors).  
+   Why: adoption fails if users fall back to JSON editing.
+5) Add Plan vs Accept AI modes with explicit risk gating.  
+   Why: enables speed without sacrificing safety.
+6) Polish safety UX (preview/simulate/diff/rollback) and operator AI.  
+   Why: safety and trust are the core differentiators.
+
+## UI Component Guidelines
+
+- Use shadcn/ui components; map field types to appropriate inputs.
+- Examples: enum → `Select`, long text → `Textarea`, boolean → `Checkbox`,
+  date → `DatePicker`/`Input[type=date]`, money → `Input` with currency formatting.
 
 ## Don't (with why)
 
@@ -29,5 +33,7 @@
   Why: sync, drift, and conflict complexity outweighs early value.
 - Don't add event sourcing, ClickHouse, or complex infra early.  
   Why: premature optimization slows validation of core value.
+- Don't move business logic into Redis or caches.  
+  Why: source-of-truth must stay deterministic and auditable.
 - Don't over-encode change packs with machine-only structure.  
   Why: the pack should stay human-first and agent-friendly.

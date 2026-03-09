@@ -7,7 +7,9 @@ use apps with AI assistance. Runtime stays safe via reviewable change packs.
 
 - `HIGH_LEVEL_PLAN.md` — current vision, architecture, and demo flow.
 - `TODO.md` — do/don’t list with rationale.
-- `INTENT_SPEC.md` — how to write intent (user story + Gherkin scenarios).
+- `EXECUTION_PLAN.md` — phased execution plan for the demo and runtime engine.
+- `REVIEW_CONTEXT.md` — discussion context and decisions for external review.
+- `INTENT_SPEC.md` — how to write intent (user story + acceptance scenarios).
 - `CHANGE_SPEC.md` — how to describe current vs expected state per stack.
 - `CHANGE_PACK_SPEC.md` — pack layout and publishing expectations.
 
@@ -15,6 +17,7 @@ use apps with AI assistance. Runtime stays safe via reviewable change packs.
 
 - The active authoring flow is `intent.md` + `change.md` (no DSL, no patch format).
 - Change packs are human-first and reviewed before publish.
+- Runtime execution is deterministic; AI drafts only and never directly executes.
 - Requirements specs and machine schemas are deprecated.
 
 ## Legacy / Reference
